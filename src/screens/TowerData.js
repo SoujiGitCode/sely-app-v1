@@ -1,9 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import Feather from "@expo/vector-icons/Feather";
-import AnimationAsset from "./elements/AnimationAsset";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import TowerInfo from "./elements/TowerInfo";
 
 const TowerData = props => {

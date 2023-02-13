@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {SafeAreaView, useSafeAreaInsets, SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
@@ -6,9 +6,10 @@ import HomeStackNavigator from "./src/navigator/Navigation";
 import Loader from "./src/screens/Loader"
 import useWsData from "./CustomHooks/useWsData";
 import * as Font from 'expo-font';
+import Disconnected from "./src/screens/Disconnected";
+import TowerInfo from "./src/screens/elements/TowerInfo";
 
 const App = () => {
-  const delay = ms => new Promise(res => setTimeout(res, ms));
   const [appIsLoaded, setAppIsLoaded] = useState(false);
   useEffect(() => {
     const prepare = async () => {
@@ -28,20 +29,53 @@ const App = () => {
         });
       }
       catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       finally {
       //  await delay(5000);
-        setTimeout(() => {  setAppIsLoaded(true); }, 5000);
+        setTimeout(() => {  setAppIsLoaded(true); }, 3000);
       }
     };
 
-    prepare().then(r => console.log('font loaded') );
+    prepare().then(r => connectionStatus() );
+
+
   }, []);
 
-  const [data, setData] = useState('no data');
-  //useWsData('ws://192.168.4.1:81')
+  function connectionStatus (){
+    //console.warn(wsdata)
+    setConnection(true)
+    if (wsdata == null || !wsdata.sections?.a) setConnection(false)
 
+    }
+
+
+  const [connection, setConnection] = useState(true)
+
+  const [con, setCon] = useState(<HomeStackNavigator />)
+  const wsdata = useWsData('ws://192.168.4.1:81');
+  useEffect(() => {
+    connectionStatus()
+  }, [wsdata]);
+
+
+  const ConnectionRender = connection ? <HomeStackNavigator /> :
+      <Disconnected counter={counter} setCounter={setCounter}/>
+
+  const [counter, setCounter] = useState(0);
+
+
+  useEffect(() => {
+    connectionStatus()
+  }, [counter]);
+
+  useEffect(() => {
+   // console.warn('con ilai: '+connection)
+  }, [connection]);
+
+  useEffect(() => {
+    connectionStatus()
+  }, [con]);
 
   return (
       <SafeAreaProvider >
@@ -50,9 +84,12 @@ const App = () => {
             {!appIsLoaded ?
                 <Loader />
                 :
-                <HomeStackNavigator />}
+                <Fragment>
+                  {connection ? <HomeStackNavigator connection={connection} />  :
+                      <Disconnected counter={counter} setCounter={setCounter}/>}
+                </Fragment>
+                }
           </NavigationContainer>
-
         </SafeAreaView>
       </SafeAreaProvider>
   );

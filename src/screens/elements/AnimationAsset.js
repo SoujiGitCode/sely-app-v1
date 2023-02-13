@@ -10,7 +10,9 @@ const AnimationAsset = ({name, height, width}) =>{
         nigiri: require('../../../assets/animations/nigiri.json'),
         paperplane: require('../../../assets/animations/splash.json'),
         tower: require('../../../assets/animations/tower.json'),
-        404: require('../../../assets/animations/404.json')
+        404: require('../../../assets/animations/404.json'),
+        cat:require('../../../assets/animations/cat.json'),
+        disconnected: require('../../../assets/animations/disconnected.json'),
     }
 
     const animation = animations[name] || animations['404'];

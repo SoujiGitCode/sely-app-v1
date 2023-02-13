@@ -1,34 +1,30 @@
-import {useState} from "react";
+import React, { useState, useEffect } from 'react';
 
-const useWSData = ip => {
-    const [data, setData] = useState('no daa')
-    const ws = new WebSocket(ip);
+const useWebSocketData = (url) => {
+    const [data, setData] = useState(null);
 
-    ws.onopen = () => {
-        // connection opened
-        ws.send('something'); // send a message
-    };
+    useEffect(() => {
+        const socket = new WebSocket(url);
 
-    ws.onmessage = (e) => {
-        // a message was received
-        //console.dir(e.data)
-        const obj = JSON.parse(e.data);
-        //console.log(typeof (obj))
-        setData(obj)
+        socket.onopen = (event) => {
+           // console.log('WebSocket connected:', event);
+        };
 
-    };
+        socket.onmessage = (event) => {
+            const parsedData = JSON.parse(event.data);
+            setData(parsedData);
+        };
 
-    ws.onerror = (e) => {
-        // an error occurred
-        console.log(e.message);
-    };
+        socket.onerror = (error) => {
+            //console.error('WebSocket error:', error);
+        };
 
-    ws.onclose = (e) => {
-        // connection closed
-        console.log(e.code, e.reason);
-    };
+        return () => {
+            //socket.close();
+        };
+    }, [url]);
 
-    return {"data": data}
+    return data;
 };
 
-export default useWSData ;
+export default useWebSocketData;
