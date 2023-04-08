@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import { DataTable } from 'react-native-paper';
 import useWsData from "../../../CustomHooks/useWsData";
 import {StyleSheet, Text, View} from "react-native";
+import RetryConnection from "./RetryConnection";
 
 const optionsPerPage = [2, 3, 4];
 
@@ -21,7 +22,7 @@ const TowerInfo = (props) => {
         setPage(0);
     }, [itemsPerPage]);
 
-    const wsdata = useWsData('ws://192.168.4.1:81');
+    const wsdata = useWsData('dev');
 
     useEffect(() => {
        if (wsdata == null) return console.log('ws connection error')
@@ -84,6 +85,8 @@ const TowerInfo = (props) => {
                     optionsLabel={'Rows per page'}
                 />
             </DataTable>
+
+            <RetryConnection />
         </Fragment>
 
 

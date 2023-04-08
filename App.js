@@ -52,15 +52,16 @@ const App = () => {
 
   const [connection, setConnection] = useState(true)
 
+
   const [con, setCon] = useState(<HomeStackNavigator />)
-  const wsdata = useWsData('ws://192.168.4.1:81');
+  const wsdata = useWsData('dev');
   useEffect(() => {
     connectionStatus()
   }, [wsdata]);
 
 
-  const ConnectionRender = connection ? <HomeStackNavigator /> :
-      <Disconnected counter={counter} setCounter={setCounter}/>
+  const [customRender, setCustomRender] = useState(connection ? <HomeStackNavigator connection={connection}/> :
+      <Disconnected counter={counter} setCounter={setCounter}/>)
 
   const [counter, setCounter] = useState(0);
 
@@ -84,10 +85,7 @@ const App = () => {
             {!appIsLoaded ?
                 <Loader />
                 :
-                <Fragment>
-                  {connection ? <HomeStackNavigator connection={connection} />  :
-                      <Disconnected counter={counter} setCounter={setCounter}/>}
-                </Fragment>
+              customRender
                 }
           </NavigationContainer>
         </SafeAreaView>
