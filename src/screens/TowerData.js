@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import Feather from "@expo/vector-icons/Feather";
 import TowerInfo from "./elements/TowerInfo";
+import TowerCharts from "./components/TowerCharts"
 
 const TowerData = props => {
     return (
@@ -16,7 +17,7 @@ const TowerData = props => {
             <View style={styles.cont3}>
                 <Text style={styles.title}>Tower #5 A Data</Text>
                 <View>
-                   < TowerInfo  />
+                   < TowerCharts  />
                 </View>
 
             </View>

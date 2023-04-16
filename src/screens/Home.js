@@ -17,7 +17,7 @@ const Home = (props) => {
 
             <TouchableOpacity
                 style={styles.btn}
-                onPress={() => props.navigation.navigate("Detail")}
+                onPress={() => props.navigation.navigate("TowerData")}
             >
                 <Text style={styles.text}>Next</Text>
             </TouchableOpacity>
