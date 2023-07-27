@@ -1,4 +1,4 @@
-export const getRandomInt = () => Math.floor(Math.random() * 51) + 50;
+export const getRandomInt = () => Math.floor(Math.random() * 51) + 30;
 
 export const transformData = (dataset) => {
     const totals = dataset[0].map((data, i) => {
