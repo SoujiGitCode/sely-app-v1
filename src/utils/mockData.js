@@ -32,3 +32,26 @@ export const defaultData = [
     { x: 'C1', y: 90 },
     { x: 'D1', y: 90 },
 ];
+
+export const legendData = [
+    {
+        key: 1,
+        color: '#1cb006',
+        text: 'IN RANGE'
+    },
+    {
+        key: 2,
+        color: '#efd453',
+        text: 'BORDER OF LIMIT'
+    },
+    {
+        key: 3,
+        color: '#ae422e',
+        text: 'LIMIT REACHED'
+    },
+    {
+        key: 4,
+        color: '#373a71',
+        text: 'VALUE IN REAL TIME'
+    }
+]

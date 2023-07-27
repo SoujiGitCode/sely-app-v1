@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import styles from './styles';
+import { View, Text} from 'react-native';
 
-const ColorBox = ({}) => {
+const ColorBox = ({ color }) => {
     return (
-        <View style={styles.container} >
+        <View style={{
+            height: 20,
+            width: 20,
+            backgroundColor: color
+        }}>
         </View>
     );
 }

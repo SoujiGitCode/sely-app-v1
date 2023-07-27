@@ -37,12 +37,12 @@ const RadarChart = ({}) => {
                     }}
                     data={staticBlankLimit}
                 />
-                <VictoryStack colorScale={["green", "orange", "red"]}>
+                <VictoryStack colorScale={["#1cb006", "#efd453", "#ae422e"]}>
                     { dataset.map((data, i) => { return <VictoryBar data={data} key={i}/>; }) }
                 </VictoryStack>
                 <VictoryBar
                     style={{
-                        data: { fill: "blue", stroke: "black" }
+                        data: { fill: "#373a71", stroke: "black" }
                     }}
                     data={customData}
                 />

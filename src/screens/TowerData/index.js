@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Feather from "@expo/vector-icons/Feather";
-import TowerInfo from "../elements/TowerInfo";
 import TowerCharts from "../components/TowerCharts";
 import LegendBox from '../components/LegendBox';
 import Header from '../components/Header';
 import styles from './styles';
+import { legendData } from '../../utils'
 
 const TowerData = props => {
     return (
@@ -19,7 +17,17 @@ const TowerData = props => {
                 </View>
             </View>
             <View style={styles.legendContainer}>
-                <LegendBox />
+                {
+                    legendData.map((element) => {
+                        return (
+                            <LegendBox 
+                                key={element.key}
+                                color={element.color}
+                                text={element.text}
+                            />
+                        )
+                    })
+                }
             </View>
         </View>
     );
