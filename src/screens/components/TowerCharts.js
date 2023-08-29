@@ -1,81 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { VictoryChart, VictoryPolarAxis, VictoryTheme, VictoryArea, VictoryLabel, VictoryScatter } from 'victory-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { VictoryChart, VictoryBar, VictoryAxis, VictoryLine, VictoryArea } from 'victory-native';
+import useWebSocketData from "../../../CustomHooks/useWsData";
 
-function getRandomInt() {
-    return Math.floor(Math.random() * 51) + 50;
-}
 
-const RadarChart = ({}) => {
-    const defaultData = [
-        { x: 'A1', y: 90 },
-        { x: 'B1', y: 90 },
-        { x: 'C1', y: 90 },
-        { x: 'D1', y: 90 },
-    ];
+const styles = StyleSheet.create({
+    dataText: {
+        fontSize: 14,
+        margin: 2,
+        fontWeight: 'bold'
+    }
+});
 
-    const [customData, setCustomData] = useState([
-        { x: 'A1', y: 85 },
-        { x: 'B1', y: 80 },
-        { x: 'C1', y: 100 },
-        { x: 'D1', y: 110 },
-    ]);
+
+const BarChart = () => {
+    const wsdata = useWebSocketData('dev');
+    const [barData, setBarData] = useState([]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const newData = [
-                { x: 'A1', y: getRandomInt() },
-                { x: 'B1', y: getRandomInt() },
-                { x: 'C1', y: getRandomInt() },
-                { x: 'D1', y: getRandomInt() },
+        if (wsdata && wsdata.sections && wsdata.sections.a) {
+            const sectionA = wsdata.sections.a;
+            const formattedData = [
+                { x: ' ', y: 0 },
+                ...Object.keys(sectionA).map(key => ({ x: key, y: sectionA[key] }))
             ];
-            setCustomData(newData);
-        }, 2000);
-        return () => clearInterval(interval);
-    }, []);
+            setBarData(formattedData);
+            // console.log(barData)
+        }
+    }, [wsdata]);
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F5FCFF' }}>
-            <VictoryChart polar
-                          theme={VictoryTheme.material}
-                          domain={{ y: [0, 150] }}
-            >
-                <VictoryPolarAxis
-                    dependentAxis
-                    labelPlacement="vertical"
-                    style={{ tickLabels: { fontSize: 8, padding: 10 } }}
+            <View style={{ position: 'absolute', top: 0, backgroundColor: 'white', zIndex: 10 }}>
+                {barData.slice(1).map((data, index) => (
+                    <Text key={index}>{`${data.x}: ${data.y}`}</Text>
+                ))}
+            </View>
+            <VictoryChart domain={{ y: [null, 2000] }}>
+                <VictoryAxis
+                    tickValues={[' ', ...Object.keys(wsdata?.sections?.a || {})]}
+                    tickFormat={[' ', ...Object.keys(wsdata?.sections?.a || {})]}
                 />
-                <VictoryPolarAxis
-                    labelPlacement="parallel"
-                    tickValues={['A1', 'B1', 'C1', 'D1']}
-                    tickFormat={() => ''}
-                    style={{ axis: { stroke: 'none' } }}
-                />
+                <VictoryAxis dependentAxis />
+
                 <VictoryArea
-                    data={defaultData}
-                    style={{ data: { fill: '#C43A31', fillOpacity: 0.2, stroke: '#C43A31', strokeWidth: 2 } }}
+                    data={[
+                        { x: ' ', y0: 300, y: 900 },
+                        { x: 'a4', y0: 300, y: 900 }
+                    ]}
+                    style={{ data: { fill: 'lightgreen', stroke: 'green', strokeWidth: 1 } }}
                 />
-                <VictoryScatter
-                    data={defaultData}
-                    size={3}
-                    style={{ data: { fill: 'blue' } }}
-                    labels={({ datum }) => datum.y}
-                    labelComponent={<VictoryLabel style={{ fontSize: 8 }} />}
+                <VictoryLine
+                    data={[{ x: ' ', y: 300 }, { x: 'a4', y: 300 }]}
+                    style={{ data: { stroke: 'green', strokeWidth: 2 } }}
                 />
-                <VictoryArea
-                    data={customData}
-                    style={{ data: { fill: 'grey', fillOpacity: 0.2, stroke: 'grey', strokeWidth: 2 } }}
+                <VictoryLine
+                    data={[{ x: ' ', y: 900 }, { x: 'a4', y: 900 }]}
+                    style={{ data: { stroke: 'green', strokeWidth: 2 } }}
                 />
-                <VictoryScatter
-                    data={customData}
-                    size={3}
-                    style={{ data: { fill: 'black' } }}
-                    labels={({ datum }) => datum.y}
-                    labelComponent={<VictoryLabel style={{ fontSize: 8 }} />}
-                />
+
+                <VictoryBar data={barData} x="x" y="y" />
             </VictoryChart>
         </View>
     );
 }
 
-export default RadarChart;
+export default BarChart;
