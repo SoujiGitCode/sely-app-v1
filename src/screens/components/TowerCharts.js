@@ -25,7 +25,6 @@ const BarChart = () => {
                 ...Object.keys(sectionA).map(key => ({ x: key, y: sectionA[key] }))
             ];
             setBarData(formattedData);
-            // console.log(barData)
         }
     }, [wsdata]);
 
@@ -36,26 +35,26 @@ const BarChart = () => {
                     <Text key={index}>{`${data.x}: ${data.y}`}</Text>
                 ))}
             </View>
-            <VictoryChart domain={{ y: [null, 2000] }}>
+            <VictoryChart domain={{ y: [null, 1500] }}>
                 <VictoryAxis
-                    tickValues={[' ', ...Object.keys(wsdata?.sections?.a || {})]}
-                    tickFormat={[' ', ...Object.keys(wsdata?.sections?.a || {})]}
+                    tickValues={[' ', ...Object.keys(wsdata?.sections?.a || {}), 'a5']}
+                    tickFormat={[' ', ...Object.keys(wsdata?.sections?.a || {}), '']}
                 />
                 <VictoryAxis dependentAxis />
 
                 <VictoryArea
                     data={[
                         { x: ' ', y0: 300, y: 900 },
-                        { x: 'a4', y0: 300, y: 900 }
+                        { x: 'a5', y0: 300, y: 900 }
                     ]}
                     style={{ data: { fill: 'lightgreen', stroke: 'green', strokeWidth: 1 } }}
                 />
                 <VictoryLine
-                    data={[{ x: ' ', y: 300 }, { x: 'a4', y: 300 }]}
+                    data={[{ x: ' ', y: 300 }, { x: 'a5', y: 300 }]}
                     style={{ data: { stroke: 'green', strokeWidth: 2 } }}
                 />
                 <VictoryLine
-                    data={[{ x: ' ', y: 900 }, { x: 'a4', y: 900 }]}
+                    data={[{ x: ' ', y: 900 }, { x: 'a5', y: 900 }]}
                     style={{ data: { stroke: 'green', strokeWidth: 2 } }}
                 />
 
