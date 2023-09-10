@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from "react-native";
-import {TouchableOpacity} from "react-native-gesture-handler";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Feather from "@expo/vector-icons/Feather";
 import TowerInfo from "./elements/TowerInfo";
 import TowerCharts from "./components/TowerCharts"
@@ -9,15 +9,15 @@ const TowerData = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={()=>props.navigation.goBack()}>
+                <TouchableOpacity onPress={() => props.navigation.goBack()}>
                     <Feather name="chevron-left" color="#000" size={25} />
                 </TouchableOpacity>
                 <Feather name="wifi" color="#000" size={25} />
             </View>
             <View style={styles.cont3}>
-                <Text style={styles.title}>Tower #5 A Data</Text>
+                <Text style={styles.title}>Tower #5 B Data</Text>
                 <View>
-                   < TowerCharts  />
+                    < TowerCharts />
                 </View>
 
             </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         paddingRight: 80,
         lineHeight: 25,
     },
-    textWhite:{
+    textWhite: {
         color: "#fff"
     },
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         width: 20,
         borderRadius: 15,
         backgroundColor: "#529C47",
-        marginHorizontal:10
+        marginHorizontal: 10
     },
     c1: {
         alignItems: "center",
