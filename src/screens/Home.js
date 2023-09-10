@@ -9,10 +9,10 @@ const Home = (props) => {
 
     return (
         <View style={styles.container}>
-            {beta &&<Image source={require("../img/tower.png")} style={styles.img}/>}
-            {!beta && <AnimationAsset name={"nigiri"} width={300} height={300}/>}
+            {beta && <Image source={require("../img/tower.png")} style={styles.img} />}
+            {!beta && <AnimationAsset name={"tower2"} width={300} height={300} loop={false} />}
 
-            <Text style={styles.title}>Tower #5 A</Text>
+            <Text style={styles.title}>Tower #5 B</Text>
             <TowerTable />
 
             <TouchableOpacity
