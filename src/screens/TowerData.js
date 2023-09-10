@@ -12,14 +12,11 @@ const TowerData = props => {
                 <TouchableOpacity onPress={() => props.navigation.goBack()}>
                     <Feather name="chevron-left" color="#000" size={25} />
                 </TouchableOpacity>
+                <Text style={styles.title}>Tower #5 B Data</Text>
                 <Feather name="wifi" color="#000" size={25} />
             </View>
             <View style={styles.cont3}>
-                <Text style={styles.title}>Tower #5 B Data</Text>
-                <View>
-                    < TowerCharts />
-                </View>
-
+                < TowerCharts />
             </View>
         </View>
     );
@@ -119,8 +116,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        paddingHorizontal: 20,
-        paddingTop: 50,
+        paddingHorizontal: 10,
+        paddingTop: 10,
     },
     img: {
         height: "35%",
