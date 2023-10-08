@@ -36,7 +36,7 @@ const BarChart = () => {
         const g = 9.81;  // Aceleración debida a la gravedad en m/s^2
         let masaEnKg = gramos / 1000;  // Convertir gramos a kilogramos
         let fuerza = masaEnKg * g;    // Calcular la fuerza (tensión) en newtons
-        return parseFloat(fuerza.toFixed(2));
+        return fuerza.toFixed(2);
     }
 
 
