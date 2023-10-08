@@ -1,6 +1,6 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import {StyleSheet, Text, View} from "react-native";
-import {SafeAreaView, useSafeAreaInsets, SafeAreaProvider } from "react-native-safe-area-context";
+import React, { useState, useEffect, Fragment } from 'react';
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, useSafeAreaInsets, SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeStackNavigator from "./src/navigator/Navigation";
 import Loader from "./src/screens/Loader"
@@ -32,22 +32,22 @@ const App = () => {
         //console.log(error);
       }
       finally {
-      //  await delay(5000);
-        setTimeout(() => {  setAppIsLoaded(true); }, 3000);
+        //  await delay(5000);
+        setTimeout(() => { setAppIsLoaded(true); }, 3000);
       }
     };
 
-    prepare().then(r => connectionStatus() );
+    prepare().then(r => connectionStatus());
 
 
   }, []);
 
-  function connectionStatus (){
+  function connectionStatus() {
     //console.warn(wsdata)
     setConnection(true)
     if (wsdata == null || !wsdata.sections?.a) setConnection(false)
 
-    }
+  }
 
 
   const [connection, setConnection] = useState(true)
@@ -60,8 +60,8 @@ const App = () => {
   }, [wsdata]);
 
 
-  const [customRender, setCustomRender] = useState(connection ? <HomeStackNavigator connection={connection}/> :
-      <Disconnected counter={counter} setCounter={setCounter}/>)
+  const [customRender, setCustomRender] = useState(connection ? <HomeStackNavigator connection={connection} /> :
+    <Disconnected counter={counter} setCounter={setCounter} />)
 
   const [counter, setCounter] = useState(0);
 
@@ -71,7 +71,7 @@ const App = () => {
   }, [counter]);
 
   useEffect(() => {
-   // console.warn('con ilai: '+connection)
+    // console.warn('con ilai: '+connection)
   }, [connection]);
 
   useEffect(() => {
@@ -79,17 +79,17 @@ const App = () => {
   }, [con]);
 
   return (
-      <SafeAreaProvider >
-        <SafeAreaView  style={styles.container}>
-          <NavigationContainer >
-            {!appIsLoaded ?
-                <Loader />
-                :
-              customRender
-                }
-          </NavigationContainer>
-        </SafeAreaView>
-      </SafeAreaProvider>
+    <SafeAreaProvider >
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer >
+          {!appIsLoaded ?
+            <Loader />
+            :
+            customRender
+          }
+        </NavigationContainer>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

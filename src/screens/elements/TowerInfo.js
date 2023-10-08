@@ -1,7 +1,7 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { DataTable } from 'react-native-paper';
 import useWsData from "../../../CustomHooks/useWsData";
-import {StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import RetryConnection from "./RetryConnection";
 
 const optionsPerPage = [2, 3, 4];
@@ -25,7 +25,7 @@ const TowerInfo = (props) => {
     const wsdata = useWsData('dev');
 
     useEffect(() => {
-       if (wsdata == null) return console.log('ws connection error')
+        if (wsdata == null) return console.log('ws connection error')
         //console.log(wsdata.sections?.a)
         setN1(wsdata.sections?.a.a1)
         setN2(wsdata.sections?.a.a2)
@@ -34,9 +34,9 @@ const TowerInfo = (props) => {
     }, [wsdata]);
 
     function setColor(recommendedVal, currentVal, gap) {
-        if (currentVal <= recommendedVal + gap && currentVal >= recommendedVal - gap) {return styles.green;}
-        if (currentVal < recommendedVal + gap) {return styles.red;}
-        if (currentVal > recommendedVal + gap) {return styles.purple;}
+        if (currentVal <= recommendedVal + gap && currentVal >= recommendedVal - gap) { return styles.green; }
+        if (currentVal < recommendedVal + gap) { return styles.red; }
+        if (currentVal > recommendedVal + gap) { return styles.purple; }
     }
 
 
@@ -98,12 +98,12 @@ export default TowerInfo;
 
 const styles = StyleSheet.create({
     green: {
-      color: "#32a38e"
+        color: "#32a38e"
     },
     purple: {
         color: "#9b10b7"
     },
-    red:{
+    red: {
         color: "#dd2e2e"
     },
     cGreen: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         width: 20,
         borderRadius: 15,
         backgroundColor: "#529C47",
-        marginHorizontal:10
+        marginHorizontal: 10
     },
     cRed: {
         alignItems: "center",
