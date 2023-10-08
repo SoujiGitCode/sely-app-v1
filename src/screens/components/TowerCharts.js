@@ -5,8 +5,9 @@ import useWsData from "../../../CustomHooks/useWsData";
 
 
 const BAR_WIDTH = 20;
+
 const barColor = '#7c0313';
-const areaColor = '#007BFF';
+const areaColor = '#3498DB';
 
 const BarChart = () => {
 
@@ -41,7 +42,7 @@ const BarChart = () => {
 
     return (
         <ScrollView>
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <View style={{ flex: 1, backgroundColor: '' }}>
 
                 <VictoryChart width={Dimensions.get('window').width}
                     height={Math.min(screenHeight, 500)} domain={{ y: [null, 1300] }}>
@@ -79,9 +80,14 @@ const BarChart = () => {
             </View >
             <View style={styles.dataContainer}>
                 {barData.slice(1).map((data, index) => (
-                    <Text style={styles.dataText} key={index} color={barColor}>
-                        {`${data.x}: ${gramosANewtons(data.y)}`} N
-                    </Text>
+                    <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ color: 'black', marginRight: 5, fontWeight: '700' }}>  {/* marginRight para dar espacio entre los textos */}
+                            {data.x}
+                        </Text>
+                        <Text style={styles.dataText}>
+                            {`${gramosANewtons(data.y)}`} N
+                        </Text>
+                    </View>
                 ))}
             </View>
 
@@ -109,8 +115,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         margin: 2,
         fontWeight: 'bold',
-        color: barColor,
-        textAlign: 'center'
+        color: barColor
     },
     legend: {
         flexDirection: 'row',
@@ -130,6 +135,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
         margin: 10,
-        justifyContent: 'center'
+        alignItems: 'center' // Centra horizontalmente los hijos
     },
 });
