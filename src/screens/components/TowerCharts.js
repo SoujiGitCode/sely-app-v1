@@ -6,8 +6,8 @@ import useWsData from "../../../CustomHooks/useWsData";
 
 const BAR_WIDTH = 20;
 
-const barColor = '#7c0313';
-const areaColor = '#3498DB';
+const barColor = '#525FE1';
+const areaColor = '#F86F03';
 
 const BarChart = () => {
 
