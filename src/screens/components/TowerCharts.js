@@ -11,23 +11,29 @@ const areaColor = '#F86F03';
 
 const BarChart = () => {
 
+
     const { height: screenHeight } = Dimensions.get('window');
 
 
 
     const wsdata = useWsData('dev');
     const [barData, setBarData] = useState([]);
+    const [minMax, setMinMax] = useState({ min: 0, max: 13 });
+
 
     useEffect(() => {
         if (wsdata && wsdata.sections && wsdata.sections.a) {
             const sectionA = wsdata.sections.a;
             const formattedData = [
                 { x: ' ', y: 0 },
-                ...Object.keys(sectionA).map(key => ({ x: key, y: sectionA[key] }))
+                ...Object.keys(sectionA).map(key => ({ x: key, y: parseFloat(sectionA[key]) }))
             ];
             setBarData(formattedData);
+
+            // console.log(barData)
         }
     }, [wsdata]);
+
 
     const columns = ['a1', 'a2', 'a3', 'a4'];
 
@@ -45,7 +51,7 @@ const BarChart = () => {
             <View style={{ flex: 1, backgroundColor: '' }}>
 
                 <VictoryChart width={Dimensions.get('window').width}
-                    height={Math.min(screenHeight, 500)} domain={{ y: [null, 1300] }}>
+                    height={Math.min(screenHeight, 500)} domain={{ y: [minMax.min, minMax.max] }}>
                     <VictoryAxis
                         tickValues={[' ', ...Object.keys(wsdata?.sections?.a || {}), 'a5']}
                         tickFormat={[' ', ...Object.keys(wsdata?.sections?.a || {}), '']}
@@ -55,17 +61,17 @@ const BarChart = () => {
                     {columns.map(column => (
                         <VictoryBar
                             key={column}
-                            data={[{ x: column, y0: 300, y: 900 }]}
-                            style={{ data: { fill: areaColor } }}  // Verde lima para resaltar las áreas
+                            data={[{ x: column, y0: 3, y: 9 }]}
+                            style={{ data: { fill: areaColor } }}  // Naranja para areas de mins y max
                             barWidth={BAR_WIDTH}
                         />
                     ))}
                     <VictoryLine
-                        data={[{ x: ' ', y: 300 }, { x: 'a5', y: 300 }]}
+                        data={[{ x: ' ', y: 3 }, { x: 'a5', y: 3 }]}
                         style={{ data: { stroke: areaColor, strokeWidth: 2 } }}
                     />
                     <VictoryLine
-                        data={[{ x: ' ', y: 900 }, { x: 'a5', y: 900 }]}
+                        data={[{ x: ' ', y: 9 }, { x: 'a5', y: 9 }]}
                         style={{ data: { stroke: areaColor, strokeWidth: 2 } }}
                     />
 
@@ -74,7 +80,7 @@ const BarChart = () => {
                         x="x"
                         y="y"
                         barWidth={BAR_WIDTH}
-                        style={{ data: { fill: barColor } }}  // Azul eléctrico para datos principales
+                        style={{ data: { fill: barColor } }}  // Azul para datos principales
                     />
                 </VictoryChart>
             </View >
@@ -85,7 +91,7 @@ const BarChart = () => {
                             {data.x}
                         </Text>
                         <Text style={styles.dataText}>
-                            {`${gramosANewtons(data.y)}`} N
+                            {data.y.toFixed(2)} N
                         </Text>
                     </View>
                 ))}
